@@ -1,3 +1,15 @@
+const showLoad = () => {
+  document.getElementById("loader").classList.remove("hidden");
+};
+
+
+
+const hideLoad = () => {
+  document.getElementById("loader").classList.add("hidden");
+};
+
+
+
 // Load Categories
 const loadCatagories = () => {
   fetch('https://openapi.programming-hero.com/api/categories')
@@ -32,24 +44,30 @@ const displayCatagories = (categories) => {
 
 // Load All Plants
 const loadAllPlants = () => {
+  showLoad();
   fetch('https://openapi.programming-hero.com/api/plants')
     .then(res => res.json())
     .then(data => {
       renderPlants(data.plants);
+      hideLoad();
     })
     .catch(err => console.error(err));
+    hideLoad();
 };
 
 
 
 // Load Category Wise Plants
 const cataLoad = (id) => {
+  showLoad();
   fetch(`https://openapi.programming-hero.com/api/category/${id}`)
     .then(res => res.json())
     .then(data => {
       renderPlants(data.plants);
+      hideLoad();
     })
     .catch(err => console.error(err));
+    hideLoad();
 };
 
 
@@ -102,13 +120,16 @@ const renderPlants = (plants) => {
 
 // Load Plant details
 const plantDetails = (id) => {
+  showLoad();
   const url = `https://openapi.programming-hero.com/api/plant/${id}`;
   fetch(url)
     .then(res => res.json())
     .then(data => {
       displayPlantDetails(data.plants);
+      hideLoad();
     })
     .catch(err => console.error(err));
+    hideLoad();
   
 };
 
@@ -136,13 +157,16 @@ const displayPlantDetails = (details) => {
 
 // Add to Cart Load
 const loadCart = (id) => {
+  showLoad();
   const url = `https://openapi.programming-hero.com/api/plant/${id}`;
   fetch(url)
     .then(res => res.json())
     .then(data => {
       displayCart(data.plants);
+      hideLoad();
     })
     .catch(err => console.error(err));
+    hideLoad();
 };
 
 
