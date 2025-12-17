@@ -72,7 +72,7 @@ const cataLoad = (id) => {
 
 
 
-// ONE & ONLY Render Function
+// All merged function
 const renderPlants = (plants) => {
   const container = document.getElementById("allPlantsDiv");
   container.innerHTML = "";
@@ -169,25 +169,36 @@ const loadCart = (id) => {
     hideLoad();
 };
 
-
+// Add to Cart Display
 let total = 0;
+
 const displayCart = (item) => {
   const cartDiv = document.getElementById("cartDiv");
-  // cartDiv.innerHTML = "";
 
-  
   const cartEle = document.createElement("div");
-    cartEle.className = "flex justify-between p-2 border-b";
-    cartEle.innerHTML = `
-      <span>${item.name}</span>
-      <span>${item.price}</span>
-    `;
-    cartDiv.appendChild(cartEle);
-    total += Number(item.price)
-    document.getElementById("totalsDiv").innerText = total;
-  
+  cartEle.className = "flex justify-between p-2 border-b items-center";
 
-  
+  cartEle.innerHTML = `
+    <span>${item.name}</span>
+
+    <div class="flex gap-2 items-center">
+      <span class="price">${item.price}</span>
+      <button class="btn btn-xs btn-error">X</button>
+    </div>
+  `;
+
+  //  REMOVE BUTTON 
+  const removeBtn = cartEle.querySelector("button");
+  removeBtn.addEventListener("click", () => {
+    total -= Number(item.price);
+    document.getElementById("totalsDiv").innerText = total;
+    cartEle.remove(); 
+  });
+
+  cartDiv.appendChild(cartEle);
+
+  total += Number(item.price);
+  document.getElementById("totalsDiv").innerText = total;
 };
 
 
